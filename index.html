@@ -52,37 +52,18 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .slot-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            font-size: 150px;
-        }
-        .slot-box {
-            width: 150px;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid black;
-            background: white;
-            font-size: 150px;
-            overflow: hidden;
-            position: relative;
-        }
-        .slot-reel {
-            position: absolute;
-            width: 100%;
-            height: 600%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            transition: transform 2s ease-in-out;
-        }
         .dice {
             font-size: 150px;
             text-align: center;
+            display: inline-block;
+        }
+        .rolling {
+            animation: roll 1s ease-in-out;
+        }
+        @keyframes roll {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
         }
     </style>
 </head>
@@ -99,16 +80,6 @@
             <button onclick="zarAt()">Zar At</button>
             <p id="zarSonuc" class="dice">🎲</p>
         </div>
-        <div id="game2" class="game">
-            <h2>Slot Makinesi</h2>
-            <button onclick="slotOyna()">Slot Çevir</button>
-            <div class="slot-container">
-                <div class="slot-box"><div id="slot1" class="slot-reel"></div></div>
-                <div class="slot-box"><div id="slot2" class="slot-reel"></div></div>
-                <div class="slot-box"><div id="slot3" class="slot-reel"></div></div>
-            </div>
-            <p id="slotSonuc"></p>
-        </div>
     </div>
 
     <script>
@@ -124,44 +95,13 @@
         function zarAt() {
             let zar = Math.floor(Math.random() * 6) + 1;
             let zarSonuc = document.getElementById('zarSonuc');
-            zarSonuc.innerHTML = '🎲';
-            zarSonuc.style.fontSize = "150px";
+            zarSonuc.classList.remove('rolling'); // Önce eski animasyonu kaldır
+            void zarSonuc.offsetWidth; // CSS yeniden başlatmak için
+            zarSonuc.classList.add('rolling');
             setTimeout(() => {
-                zarSonuc.innerHTML = '🎲 ' + zar;
+                zarSonuc.innerHTML = `🎲 ${zar}`;
             }, 1000);
-        }
-
-        function slotOyna() {
-            let semboller = ["🍒", "🍋", "🍊", "🍉", "⭐", "🔔"];
-            let reels = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
-            
-            reels.forEach((reel, index) => {
-                reel.innerHTML = "";
-                let order = [];
-                for (let i = 0; i < 10; i++) {
-                    let symbol = semboller[Math.floor(Math.random() * semboller.length)];
-                    let elem = document.createElement("div");
-                    elem.innerHTML = symbol;
-                    elem.style.fontSize = "150px";
-                    order.push(symbol);
-                    reel.appendChild(elem);
-                }
-                setTimeout(() => {
-                    reel.style.transform = `translateY(-${120 * (order.length - 1)}px)`;
-                }, index * 500);
-            });
-
-            setTimeout(() => {
-                let results = reels.map(reel => reel.lastChild.innerHTML);
-                let slotSonuc = document.getElementById('slotSonuc');
-                if (results[0] === results[1] && results[1] === results[2]) {
-                    slotSonuc.innerHTML = "🎉 Kazandın!";
-                } else {
-                    slotSonuc.innerHTML = "❌ Kaybettin!";
-                }
-            }, 2000);
         }
     </script>
 </body>
 </html>
-
