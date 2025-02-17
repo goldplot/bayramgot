@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Sayfası</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h2>Hoşgeldin, <span id="usernameDisplay"></span>!</h2>
+        <p>Bakiye: <span id="balanceDisplay"></span>₺</p>
+        <button onclick="logout()">Çıkış Yap</button>
+    </div>
+    <script>
+        function loadProfile() {
+            let currentUser = localStorage.getItem("currentUser");
+            if (!currentUser) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            let userData = JSON.parse(localStorage.getItem(currentUser));
+            document.getElementById("usernameDisplay").innerText = userData.username;
+            document.getElementById("balanceDisplay").innerText = userData.balance;
+        }
+
+        function logout() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "login.html";
+        }
+
+        window.onload = loadProfile;
+    </script>
+</body>
+</html>
