@@ -27,9 +27,11 @@
             color: white;
             border: none;
             cursor: pointer;
+            transition: transform 0.2s ease-in-out;
         }
         .sidebar button:hover {
             background: #777;
+            transform: scale(1.05);
         }
         .content {
             margin-left: 220px;
@@ -41,6 +43,24 @@
             border: 2px solid #ccc;
             padding: 20px;
             background: #f4f4f4;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .game.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .slot-animation {
+            animation: shake 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
         }
     </style>
 </head>
@@ -67,9 +87,11 @@
     <script>
         function showGame(gameId) {
             document.querySelectorAll('.game').forEach(game => {
-                game.style.display = 'none';
+                game.classList.remove('show');
             });
-            document.getElementById(gameId).style.display = 'block';
+            setTimeout(() => {
+                document.getElementById(gameId).classList.add('show');
+            }, 50);
         }
 
         function zarAt() {
@@ -84,6 +106,8 @@
             let slot3 = semboller[Math.floor(Math.random() * semboller.length)];
             let slotSonuc = document.getElementById('slotSonuc');
             slotSonuc.innerHTML = `${slot1} | ${slot2} | ${slot3}`;
+            slotSonuc.classList.add("slot-animation");
+            setTimeout(() => slotSonuc.classList.remove("slot-animation"), 500);
             if (slot1 === slot2 && slot2 === slot3) {
                 slotSonuc.innerHTML += " 🎉 Kazandın!";
             } else {
