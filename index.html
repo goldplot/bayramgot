@@ -60,6 +60,22 @@
             50% { transform: rotate(360deg); }
             100% { transform: rotate(0deg); }
         }
+        .slot-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 100px;
+        }
+        .slot-box {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid black;
+            background: white;
+            font-size: 100px;
+        }
     </style>
 </head>
 <body>
@@ -78,6 +94,11 @@
         <div id="game2" class="game">
             <h2>Slot Makinesi</h2>
             <button onclick="slotOyna()">Slot Çevir</button>
+            <div class="slot-container">
+                <div id="slot1" class="slot-box">❓</div>
+                <div id="slot2" class="slot-box">❓</div>
+                <div id="slot3" class="slot-box">❓</div>
+            </div>
             <p id="slotSonuc"></p>
         </div>
     </div>
@@ -105,19 +126,28 @@
 
         function slotOyna() {
             let semboller = ["🍒", "🍋", "🍊", "🍉", "⭐", "🔔"];
+            let slot1 = document.getElementById('slot1');
+            let slot2 = document.getElementById('slot2');
+            let slot3 = document.getElementById('slot3');
             let slotSonuc = document.getElementById('slotSonuc');
-            slotSonuc.innerHTML = '🔄 🔄 🔄';
-            slotSonuc.classList.add('rolling');
+            
+            slot1.innerHTML = '🔄';
+            slot2.innerHTML = '🔄';
+            slot3.innerHTML = '🔄';
+            
             setTimeout(() => {
-                let slot1 = semboller[Math.floor(Math.random() * semboller.length)];
-                let slot2 = semboller[Math.floor(Math.random() * semboller.length)];
-                let slot3 = semboller[Math.floor(Math.random() * semboller.length)];
-                slotSonuc.innerHTML = `${slot1} | ${slot2} | ${slot3}`;
-                slotSonuc.classList.remove('rolling');
-                if (slot1 === slot2 && slot2 === slot3) {
-                    slotSonuc.innerHTML += " 🎉 Kazandın!";
+                let s1 = semboller[Math.floor(Math.random() * semboller.length)];
+                let s2 = semboller[Math.floor(Math.random() * semboller.length)];
+                let s3 = semboller[Math.floor(Math.random() * semboller.length)];
+                
+                slot1.innerHTML = s1;
+                slot2.innerHTML = s2;
+                slot3.innerHTML = s3;
+                
+                if (s1 === s2 && s2 === s3) {
+                    slotSonuc.innerHTML = "🎉 Kazandın!";
                 } else {
-                    slotSonuc.innerHTML += " ❌ Kaybettin!";
+                    slotSonuc.innerHTML = "❌ Kaybettin!";
                 }
             }, 1000);
         }
