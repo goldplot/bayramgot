@@ -5,18 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Şans Oyunları</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            width: 200px;
+            background: #333;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+        }
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #555;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .sidebar button:hover {
+            background: #777;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .game {
+            display: none;
+            border: 2px solid #ccc;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
-    <h1>🎲 Şans Oyunları 🎰</h1>
+    <div class="sidebar">
+        <h2>Oyunlar</h2>
+        <button onclick="showGame('game1')">Zar Atma</button>
+        <button onclick="showGame('game2')">Slot Makinesi</button>
+    </div>
+    <div class="content">
+        <h1>Şans Oyunları 🎲</h1>
+        <div id="game1" class="game">
+            <h2>Zar Atma Oyunu</h2>
+            <button onclick="zarAt()">Zar At</button>
+            <p id="zarSonuc"></p>
+        </div>
+        <div id="game2" class="game">
+            <h2>Slot Makinesi</h2>
+            <button onclick="slotOyna()">Slot Çevir</button>
+            <p id="slotSonuc"></p>
+        </div>
+    </div>
 
-    <h2>🎲 Zar Atma Oyunu</h2>
-    <button onclick="zarAt()">Zar At</button>
-    <p id="zarSonuc"></p>
+    <script>
+        function showGame(gameId) {
+            document.querySelectorAll('.game').forEach(game => {
+                game.style.display = 'none';
+            });
+            document.getElementById(gameId).style.display = 'block';
+        }
 
-    <h2>🎰 Slot Makinesi</h2>
-    <button onclick="slotOyna()">Slot Çevir</button>
-    <p id="slotSonuc"></p>
+        function zarAt() {
+            let zar = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('zarSonuc').innerHTML = 'Zar: 🎲 ' + zar;
+        }
 
-    <script src="script.js"></script>
+        function slotOyna() {
+            let semboller = ["🍒", "🍋", "🍊", "🍉", "⭐", "🔔"];
+            let slot1 = semboller[Math.floor(Math.random() * semboller.length)];
+            let slot2 = semboller[Math.floor(Math.random() * semboller.length)];
+            let slot3 = semboller[Math.floor(Math.random() * semboller.length)];
+            let slotSonuc = document.getElementById('slotSonuc');
+            slotSonuc.innerHTML = `${slot1} | ${slot2} | ${slot3}`;
+            if (slot1 === slot2 && slot2 === slot3) {
+                slotSonuc.innerHTML += " 🎉 Kazandın!";
+            } else {
+                slotSonuc.innerHTML += " ❌ Kaybettin!";
+            }
+        }
+    </script>
 </body>
 </html>
