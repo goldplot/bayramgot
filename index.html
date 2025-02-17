@@ -88,6 +88,8 @@
         <h2>Oyunlar</h2>
         <button onclick="showGame('game1')">Zar Atma</button>
         <button onclick="showGame('game2')">Slot Makinesi</button>
+        <button onclick="showGame('game3')">Para Atma</button>
+        <button onclick="showGame('game4')">Günlük Şans Testi</button>
     </div>
     <div class="content">
         <h1>Şans Oyunları 🎲</h1>
@@ -103,6 +105,16 @@
             <h2>Slot Makinesi</h2>
             <button onclick="slotOyna()">Slot Çevir</button>
             <p id="slotSonuc"></p>
+        </div>
+        <div id="game3" class="game">
+            <h2>Para Atma Oyunu</h2>
+            <button onclick="paraAt()">Para At</button>
+            <p id="paraSonuc"></p>
+        </div>
+        <div id="game4" class="game">
+            <h2>Günlük Şans Testi</h2>
+            <button onclick="gunlukSans()">Şansını Dene</button>
+            <p id="sansSonuc"></p>
         </div>
     </div>
     <div class="footer">
@@ -123,7 +135,7 @@
             let zarIcon = document.getElementById('zarIcon');
             let zarSonuc = document.getElementById('zarSonuc');
             zarIcon.classList.remove('rolling');
-            void zarIcon.offsetWidth; // CSS animasyonu tekrar başlatmak için
+            void zarIcon.offsetWidth; 
             zarIcon.classList.add('rolling');
             setTimeout(() => {
                 zarSonuc.innerHTML = zar;
@@ -137,11 +149,16 @@
             let slot2 = semboller[Math.floor(Math.random() * semboller.length)];
             let slot3 = semboller[Math.floor(Math.random() * semboller.length)];
             slotSonuc.innerHTML = `${slot1} | ${slot2} | ${slot3}`;
-            if (slot1 === slot2 && slot2 === slot3) {
-                slotSonuc.innerHTML += " 🎉 Kazandın!";
-            } else {
-                slotSonuc.innerHTML += " ❌ Kaybettin!";
-            }
+        }
+
+        function paraAt() {
+            let sonuc = Math.random() < 0.5 ? "YAZI" : "TURA";
+            document.getElementById('paraSonuc').innerHTML = sonuc;
+        }
+
+        function gunlukSans() {
+            let sans = Math.floor(Math.random() * 100) + 1;
+            document.getElementById('sansSonuc').innerHTML = `Bugünkü Şansın: ${sans}%`;
         }
     </script>
 </body>
