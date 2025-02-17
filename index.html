@@ -56,29 +56,33 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            font-size: 100px;
+            font-size: 150px;
         }
         .slot-box {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 2px solid black;
             background: white;
-            font-size: 100px;
+            font-size: 150px;
             overflow: hidden;
             position: relative;
         }
         .slot-reel {
             position: absolute;
             width: 100%;
-            height: 500%;
+            height: 600%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            transition: transform 1s ease-in-out;
+            transition: transform 2s ease-in-out;
+        }
+        .dice {
+            font-size: 150px;
+            text-align: center;
         }
     </style>
 </head>
@@ -93,7 +97,7 @@
         <div id="game1" class="game">
             <h2>Zar Atma Oyunu</h2>
             <button onclick="zarAt()">Zar At</button>
-            <p id="zarSonuc"></p>
+            <p id="zarSonuc" class="dice">🎲</p>
         </div>
         <div id="game2" class="game">
             <h2>Slot Makinesi</h2>
@@ -121,10 +125,9 @@
             let zar = Math.floor(Math.random() * 6) + 1;
             let zarSonuc = document.getElementById('zarSonuc');
             zarSonuc.innerHTML = '🎲';
-            zarSonuc.classList.add('rolling');
+            zarSonuc.style.fontSize = "150px";
             setTimeout(() => {
-                zarSonuc.innerHTML = 'Zar: 🎲 ' + zar;
-                zarSonuc.classList.remove('rolling');
+                zarSonuc.innerHTML = '🎲 ' + zar;
             }, 1000);
         }
 
@@ -132,21 +135,20 @@
             let semboller = ["🍒", "🍋", "🍊", "🍉", "⭐", "🔔"];
             let reels = [document.getElementById('slot1'), document.getElementById('slot2'), document.getElementById('slot3')];
             
-            reels.forEach(reel => {
+            reels.forEach((reel, index) => {
                 reel.innerHTML = "";
                 let order = [];
                 for (let i = 0; i < 10; i++) {
                     let symbol = semboller[Math.floor(Math.random() * semboller.length)];
                     let elem = document.createElement("div");
                     elem.innerHTML = symbol;
-                    elem.style.fontSize = "100px";
+                    elem.style.fontSize = "150px";
                     order.push(symbol);
                     reel.appendChild(elem);
                 }
-                let finalSymbol = order[order.length - 1];
                 setTimeout(() => {
-                    reel.style.transform = `translateY(-${90 * (order.length - 1)}px)`;
-                }, 50);
+                    reel.style.transform = `translateY(-${120 * (order.length - 1)}px)`;
+                }, index * 500);
             });
 
             setTimeout(() => {
@@ -157,9 +159,8 @@
                 } else {
                     slotSonuc.innerHTML = "❌ Kaybettin!";
                 }
-            }, 1000);
+            }, 2000);
         }
     </script>
 </body>
 </html>
->
