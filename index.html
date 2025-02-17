@@ -52,6 +52,11 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .dice-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
         .dice {
             font-size: 150px;
             text-align: center;
@@ -78,7 +83,15 @@
         <div id="game1" class="game">
             <h2>Zar Atma Oyunu</h2>
             <button onclick="zarAt()">Zar At</button>
-            <p id="zarSonuc" class="dice">🎲</p>
+            <div class="dice-container">
+                <p id="zarIcon" class="dice">🎲</p>
+                <p id="zarSonuc" class="dice"></p>
+            </div>
+        </div>
+        <div id="game2" class="game">
+            <h2>Slot Makinesi</h2>
+            <button onclick="slotOyna()">Slot Çevir</button>
+            <p id="slotSonuc"></p>
         </div>
     </div>
 
@@ -94,12 +107,13 @@
 
         function zarAt() {
             let zar = Math.floor(Math.random() * 6) + 1;
+            let zarIcon = document.getElementById('zarIcon');
             let zarSonuc = document.getElementById('zarSonuc');
-            zarSonuc.classList.remove('rolling'); // Önce eski animasyonu kaldır
-            void zarSonuc.offsetWidth; // CSS yeniden başlatmak için
-            zarSonuc.classList.add('rolling');
+            zarIcon.classList.remove('rolling');
+            void zarIcon.offsetWidth; // CSS animasyonu tekrar başlatmak için
+            zarIcon.classList.add('rolling');
             setTimeout(() => {
-                zarSonuc.innerHTML = `🎲 ${zar}`;
+                zarSonuc.innerHTML = zar;
             }, 1000);
         }
     </script>
