@@ -72,6 +72,15 @@
             50% { transform: rotate(360deg); }
             100% { transform: rotate(0deg); }
         }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #222;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +105,9 @@
             <p id="slotSonuc"></p>
         </div>
     </div>
-
+    <div class="footer">
+        <p>Şans Oyunları © 2025 | Tüm hakları saklıdır.</p>
+    </div>
     <script>
         function showGame(gameId) {
             document.querySelectorAll('.game').forEach(game => {
