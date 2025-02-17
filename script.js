@@ -1,3 +1,4 @@
+document.body.style.position = "relative";
 // 🎲 Zar Atma Oyunu
 function zarAt() {
     let zar = Math.floor(Math.random() * 6) + 1;
