@@ -17,3 +17,43 @@ button {
 button:hover {
     background-color: darkorange;
 }
+.login-container {
+    width: 320px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.login-container input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-container button {
+    width: 45%;
+    padding: 10px;
+    background: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.login-container button:hover {
+    background: #e68a00;
+}
+
+#message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: red;
+}
