@@ -1,12 +1,32 @@
 // Bakiye sistemini LocalStorage ile tutan şans oyunları kodu
 
 document.addEventListener("DOMContentLoaded", function () {
+    const balanceContainer = document.createElement("div");
+    balanceContainer.id = "balance-container";
+    balanceContainer.style.display = "flex";
+    balanceContainer.style.alignItems = "center";
+    balanceContainer.style.fontSize = "20px";
+    balanceContainer.style.margin = "10px";
+    balanceContainer.style.fontWeight = "bold";
+    balanceContainer.style.position = "absolute";
+    balanceContainer.style.top = "10px";
+    balanceContainer.style.right = "10px";
+
     const balanceDisplay = document.createElement("div");
     balanceDisplay.id = "balance";
-    balanceDisplay.style.fontSize = "20px";
-    balanceDisplay.style.margin = "10px";
-    balanceDisplay.style.fontWeight = "bold";
-    document.body.prepend(balanceDisplay);
+    balanceDisplay.style.marginRight = "10px";
+
+    const addButton = document.createElement("button");
+    addButton.textContent = "+";
+    addButton.style.fontSize = "20px";
+    addButton.style.cursor = "pointer";
+    addButton.addEventListener("click", function () {
+        updateBalance(100);
+    });
+
+    balanceContainer.appendChild(balanceDisplay);
+    balanceContainer.appendChild(addButton);
+    document.body.prepend(balanceContainer);
 
     // Başlangıç bakiyesi (Eğer LocalStorage'da yoksa 1000₺ ile başlat)
     if (!localStorage.getItem("balance")) {
