@@ -52,15 +52,13 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .slot-animation {
-            animation: shake 0.5s ease-in-out;
+        .rolling {
+            animation: roll 1s ease-in-out;
         }
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
+        @keyframes roll {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
         }
     </style>
 </head>
@@ -96,23 +94,32 @@
 
         function zarAt() {
             let zar = Math.floor(Math.random() * 6) + 1;
-            document.getElementById('zarSonuc').innerHTML = 'Zar: 🎲 ' + zar;
+            let zarSonuc = document.getElementById('zarSonuc');
+            zarSonuc.innerHTML = '🎲';
+            zarSonuc.classList.add('rolling');
+            setTimeout(() => {
+                zarSonuc.innerHTML = 'Zar: 🎲 ' + zar;
+                zarSonuc.classList.remove('rolling');
+            }, 1000);
         }
 
         function slotOyna() {
             let semboller = ["🍒", "🍋", "🍊", "🍉", "⭐", "🔔"];
-            let slot1 = semboller[Math.floor(Math.random() * semboller.length)];
-            let slot2 = semboller[Math.floor(Math.random() * semboller.length)];
-            let slot3 = semboller[Math.floor(Math.random() * semboller.length)];
             let slotSonuc = document.getElementById('slotSonuc');
-            slotSonuc.innerHTML = `${slot1} | ${slot2} | ${slot3}`;
-            slotSonuc.classList.add("slot-animation");
-            setTimeout(() => slotSonuc.classList.remove("slot-animation"), 500);
-            if (slot1 === slot2 && slot2 === slot3) {
-                slotSonuc.innerHTML += " 🎉 Kazandın!";
-            } else {
-                slotSonuc.innerHTML += " ❌ Kaybettin!";
-            }
+            slotSonuc.innerHTML = '🔄 🔄 🔄';
+            slotSonuc.classList.add('rolling');
+            setTimeout(() => {
+                let slot1 = semboller[Math.floor(Math.random() * semboller.length)];
+                let slot2 = semboller[Math.floor(Math.random() * semboller.length)];
+                let slot3 = semboller[Math.floor(Math.random() * semboller.length)];
+                slotSonuc.innerHTML = `${slot1} | ${slot2} | ${slot3}`;
+                slotSonuc.classList.remove('rolling');
+                if (slot1 === slot2 && slot2 === slot3) {
+                    slotSonuc.innerHTML += " 🎉 Kazandın!";
+                } else {
+                    slotSonuc.innerHTML += " ❌ Kaybettin!";
+                }
+            }, 1000);
         }
     </script>
 </body>
